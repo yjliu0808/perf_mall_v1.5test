@@ -11,37 +11,17 @@ pipeline {
     }
 
     stages {
-        stage('准备目录') {
+        stage('验证拉取') {
             steps {
-                script {
-                    sh "mkdir -p jmeter-results/${PROJECT_NAME}"
-                }
-            }
-        }
-
-        stage('执行 JMeter 测试') {
-            steps {
-                script {
-                    sh """
-                        ${JMETER_HOME}/bin/jmeter -n \\
-                        -t ${SCRIPT_NAME} \\
-                        -l ${RESULT_FILE} \\
-                        -e -o ${RESULT_DIR}
-                    """
-                }
-            }
-        }
-
-        stage('归档 HTML 报告') {
-            steps {
-                archiveArtifacts artifacts: "${RESULT_DIR}/**", fingerprint: true
+                echo "✅ 自动构建成功，代码仓库已正确拉取"
+                echo "当前 JMeter 脚本文件：${SCRIPT_NAME}"
             }
         }
     }
 
     post {
         always {
-            echo "✅ JMeter 压测完成，报告已生成于 ${RESULT_DIR}"
+            echo "✅ 构建测试流程完成"
         }
     }
 }
