@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('验证拉取') {
             steps {
-                echo "✅ 自动构建成功，代码仓库已正确拉取"
+                echo "✅ 自动构建成功，代码仓库已正确拉取."
                 echo "当前 JMeter 脚本文件：${SCRIPT_NAME}"
             }
         }
